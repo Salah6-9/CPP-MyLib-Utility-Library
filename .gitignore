@@ -1,0 +1,13 @@
+# Compiled binaries and libraries
+*.o
+*.a
+*.out
+modules/*.o
+modules/*/*.o
+
+# VS Code settings & Temp files
+.vscode/
+tempCodeRunnerFile*
+
+# System files
+.DS_Store
