@@ -43,6 +43,7 @@ MyLibrary/
    ├─ MyVector.h, MyVector.cpp              → vector helpers (5 functions)
    ├─ MyFile.h, MyFile.cpp                  → file I/O (7 functions)
    └─ MySystem.h, MySystem.cpp              → screen/system helpers (4 functions)
+   ├─ MyBank.h, MyBank.cpp                → bank management utilities (reusable functions)
 ```
 
 ### The umbrella header
