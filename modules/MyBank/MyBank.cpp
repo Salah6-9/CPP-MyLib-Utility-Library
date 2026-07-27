@@ -1,5 +1,6 @@
 #include "MyBank.h"
 const string FileName = "Clients.txt";
+const string UsersFileName = "Users.txt";
 // ------------------------------------------------------------------
 // Core helper implementations extracted from Project03.cpp
 // ------------------------------------------------------------------
@@ -7,6 +8,12 @@ namespace MyBank
 {
     void GoToMainMenue(stUser User);
     void PrintMainMenu(stUser User);
+    void LoginScreen(stUser User);
+    void ShowAccessDeniedMessage(stUser User);
+    void ManageUsersMenuScreen(stUser User);
+    int GetManageUsersOption();
+    void RunUserManageChoice(int option, stUser User);
+
     bool isAccountRegistered(const vector<stClient> &Clients, const string &Value) {
         for (const stClient &c : Clients) {
             if (c.NbrAcount == Value) {
@@ -399,6 +406,149 @@ namespace MyBank
             return true;
         return ((User.Permission & PermissionsToCheck) == PermissionsToCheck);
     }
+void ShowAccessDeniedMessage(stUser User){
+    cout << "\n-----------------------------------\n";
+    cout << "\t Acces Denid,\n";
+    cout << " You Dont Have Permission To Do This,\n";
+    cout << " Please Contact Your Admin,\n";
+    cout << "\n-----------------------------------\n";
+    MyLib::PauseAndClearScreen();
+    GoToMainMenue(User);  
+
+}
+
+bool IsUserAuthorized(stUser User, const string& UsersFileName, stUser& FoundUser) {
+    // Placeholder implementation: always authorize and copy user
+    FoundUser = User;
+    return true;
+}
+int GetManageUsersOption() {
+    // Default to 'Back to Main Menu' (option 6)
+    return 6;
+}
+
+void RunUserManageChoice(int option, stUser User) {
+    // Placeholder: simply return to main menu for any choice
+    GoToMainMenue(User);
+}
+
+void ManageUsersMenuScreen(stUser User)
+{
+    system("clear");
+    cout << "==================== Manage Users Menu ====================\n";
+    cout << "[1]. List Users\n";
+    cout << "[2]. Add New User\n";
+    cout << "[3]. Delete Users\n";
+    cout << "[4]. Update Users\n";
+    cout << "[5]. Find Users\n";
+    cout << "[6]. Back to Main Menu\n";
+    cout << "===========================================================\n";
+    RunUserManageChoice(GetManageUsersOption(),User);
+}
+void LoginScreen(stUser User)
+{
+    cout << "\n-----------------------------------\n";
+    cout << "\tLogin Screen";
+    cout << "\n-----------------------------------\n";
+    bool Denid=false;
+    stUser Found;
+    do
+    {
+        User.UserName = MyIO::ReadString("Enter A User Name Please: ");
+        User.Pasword = MyIO::ReadString("Enter A Password Please: ");
+
+        Denid = !IsUserAuthorized(User,UsersFileName,Found);
+        if (Denid)
+            system("clear");
+        else    
+            User = Found ;   
+        
+    } while (Denid);
+    PrintMainMenu(User);
+}
+
+void RunTheChoice(enMenuOptions choise,stUser User)
+{
+    system("clear");
+    switch (choise)
+    {
+    case enMenuOptions::ShowClientsList:
+    {
+        if (HasPermission(User,SystemPermissions::eClientListe))
+            ShowClientDetails(FileName);
+        else 
+            ShowAccessDeniedMessage(User);
+
+        GoToMainMenue(User);
+        break;
+    }
+
+    case enMenuOptions::AddClient:
+    {
+        if (HasPermission(User,SystemPermissions::eAddNewClient))
+            ShowAddNewClientsScreen(FileName);
+        else 
+            ShowAccessDeniedMessage(User);
+
+        GoToMainMenue(User);
+        break;
+    }
+
+    case enMenuOptions::RemoveClient:
+    {
+        if (HasPermission(User,SystemPermissions::eDeleteClient))
+            ShowDeleteClientScreen(FileName);
+        else 
+            ShowAccessDeniedMessage(User);
+
+        GoToMainMenue(User);
+        break;
+    }
+
+    case enMenuOptions::UpdateClientInfo:
+    {
+        if (HasPermission(User,SystemPermissions::eUpdateClient))
+            ShowUpdateClientScreen(FileName);
+        else 
+            ShowAccessDeniedMessage(User);
+
+        GoToMainMenue(User);
+        break;
+    }
+
+    case enMenuOptions::FindClient:
+    {
+        if (HasPermission(User,SystemPermissions::eFindClient))
+            ShowFindClientScreen(FileName);
+        else 
+            ShowAccessDeniedMessage(User);
+
+        GoToMainMenue(User);
+        break;
+    }
+
+    case enMenuOptions::TransactionOptions:
+    {
+        if (HasPermission(User,SystemPermissions::eTransaction))
+            TransactionsMenuScreen(User);
+        else 
+            ShowAccessDeniedMessage(User);
+        break;
+    }
+    case enMenuOptions::ManageUsers:
+    {
+        if (HasPermission(User,SystemPermissions::eManageUsers))
+            ManageUsersMenuScreen(User);
+        else 
+            ShowAccessDeniedMessage(User);
+        
+        break;
+    }
+    case enMenuOptions::Logout:
+    
+        break;
+    }
+}
 void PrintMainMenu(stUser User)
 {
 

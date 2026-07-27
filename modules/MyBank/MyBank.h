@@ -54,6 +54,7 @@ namespace MyBank
     };
 
     // Function declarations (core reusable API)
+    bool IsUserAuthorized(stUser User, const string& UsersFileName, stUser& FoundUser);
     bool isAccountRegistered(const vector<stClient> &Clients, const string &Value);
     string ReadClientAccountNumber();
     stClient FillClientStruct(const vector<stClient> &vClients);
@@ -82,7 +83,8 @@ namespace MyBank
     void ShowWithdrawScreen(string FileName);
     void ShowTotalBalance(string FileName);
     void RunTheChoiceOfTransaction(enTransactionOptions choise, stUser User);
-    void TransactionsMenuScreen(stUser User);
+    void 
+    MenuScreen(stUser User);
     void RunTheChoice(enMenuOptions choise, stUser User);
     char GetUserConfirmation();
     bool HasPermission(stUser User, SystemPermissions PermissionsToCheck);
