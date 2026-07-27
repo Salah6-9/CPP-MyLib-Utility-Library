@@ -2,6 +2,12 @@
 *.o
 *.a
 *.out
+
+# Specific Linux Executables without extensions
+MyLib
+MyLibTest
+
+# Modules build objects
 modules/*.o
 modules/*/*.o
 
