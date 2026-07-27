@@ -5,6 +5,8 @@ const string FileName = "Clients.txt";
 // ------------------------------------------------------------------
 namespace MyBank
 {
+    void GoToMainMenue(stUser User);
+    void PrintMainMenu(stUser User);
     bool isAccountRegistered(const vector<stClient> &Clients, const string &Value) {
         for (const stClient &c : Clients) {
             if (c.NbrAcount == Value) {
@@ -143,7 +145,7 @@ namespace MyBank
         }
         return false;
     }
-
+   
     bool SearchClientInFile(string FileName, string ClientID, stClient &FoundClient, int &position) {
         vector<stClient> vClients = LoadClientsDataFromFile(FileName);
         return SearchClientInVector(ClientID, vClients, FoundClient, position);
@@ -366,7 +368,10 @@ namespace MyBank
                 break;
         }
     }
-
+    void GoToMainMenue(stUser User) {
+        MyLib::PauseAndClearScreen();
+        PrintMainMenu(User);
+    }
     void TransactionsMenuScreen(stUser User) {
         system("clear");
         cout << "==================== Transactions Menu ====================\n";
@@ -394,11 +399,24 @@ namespace MyBank
             return true;
         return ((User.Permission & PermissionsToCheck) == PermissionsToCheck);
     }
+void PrintMainMenu(stUser User)
+{
 
-    void GoToMainMenue(stUser User) {
-        MyLib::PauseAndClearScreen();
-        PrintMainMenu(User);
-    }
+    system("clear");
+    cout << "==================== Client Management System ====================\n";
+    cout << "[1]. Add New Client\n";
+    cout << "[2]. Show Clients List\n";
+    cout << "[3]. Find Client\n";
+    cout << "[4]. Update Client Info\n";
+    cout << "[5]. Remove Client\n";
+    cout << "[6]. Transactions\n";
+    cout << "[7]. Manage Users\n";
+    cout << "[8]. Logout\n";
+    cout << "==================================================================\n";
+    RunTheChoice(GetMenuChoice(),User);
+}
+
+
 
     void GoBackToTransactionMenu(stUser User) {
         MyLib::PauseAndClearScreen();

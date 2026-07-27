@@ -83,11 +83,9 @@ namespace MyBank
     void ShowTotalBalance(string FileName);
     void RunTheChoiceOfTransaction(enTransactionOptions choise, stUser User);
     void TransactionsMenuScreen(stUser User);
-    void PrintMainMenu(stUser User);
     void RunTheChoice(enMenuOptions choise, stUser User);
     char GetUserConfirmation();
     bool HasPermission(stUser User, SystemPermissions PermissionsToCheck);
-    void GoToMainMenue(stUser User);
     void GoBackToTransactionMenu(stUser User);
     void ShowAddNewClientsScreen(string FileName);
 }
