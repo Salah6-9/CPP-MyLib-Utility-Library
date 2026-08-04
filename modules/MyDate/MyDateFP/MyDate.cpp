@@ -1,5 +1,5 @@
 #include "MyDate.h"
-#include "../../MyLib.h"
+#include "../../../MyLib.h"
 #include <iostream>
 #include <iomanip>
 #include <ctime>
@@ -432,26 +432,24 @@ namespace MyDate
 
     sDate DecreaseDateByOneDay(sDate Date)
     {
-
-        if (is_LastDayInMonth(Date))
+        if (Date.day > 1)
         {
-            if (is_LastMonthInYear(Date.month))
-            {
-                Date.day = 1;
-                Date.month = 1;
-                Date.year++;
-            }
-            else
-            {
-                Date.day = 1;
-                Date.month++;
-            }
+            Date.day--;
         }
         else
         {
-            Date.day++;
+            if (Date.month > 1)
+            {
+                Date.month--;
+                Date.day = DaysInMonth(Date.month, Date.year);
+            }
+            else
+            {
+                Date.month = 12;
+                Date.year--;
+                Date.day = 31;
+            }
         }
-
         return Date;
     }
 
@@ -665,5 +663,20 @@ namespace MyDate
         return Date;
     }
 
+    enum enDateCompare
+    {
+        Before = -1,
+        Equal = 0,
+        After = 1
+    };
+    enDateCompare CompareDates(const sDate& Date1, const sDate& Date2)
+    {
+        if (MyLib::IsDate1BeforeDate2(Date1, Date2))
+            return enDateCompare::Before;
+        if (MyLib::is_Date1EqualDate2(Date1, Date2))
+            return enDateCompare::Equal;
+
+        return enDateCompare::After;
+    }
 
 }

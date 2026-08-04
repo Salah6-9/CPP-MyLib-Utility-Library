@@ -49,7 +49,7 @@ public:
     {
         bool isFirstLetter = true;
         cout << "\nFirst letters of this string: \n";
-        for (short i = 0; i < S1.length(); i++)
+        for (size_t i = 0; i < S1.length(); i++)
         {
             if (S1[i] != ' ' && isFirstLetter)
             {
@@ -67,7 +67,7 @@ public:
     static string UpperFirstLetterOfEachWord(string str)
     {
         bool isFirstLetter = true;
-        for (short i = 0; i < str.length(); i++)
+        for (size_t i = 0; i < str.length(); i++)
         {
             if (str[i] != ' ' && isFirstLetter)
             {
@@ -86,7 +86,7 @@ public:
     static string LowerFirstLetterOfEachWord(string str)
     {
         bool isFirstLetter = true;
-        for (short i = 0; i < str.length(); i++)
+        for (size_t  i = 0; i < str.length(); i++)
         {
             if (str[i] != ' ' && isFirstLetter)
             {
@@ -104,7 +104,7 @@ public:
     }
     static string AllLettersToUpper(string s)
     {
-        for (int i = 0; i < s.size(); i++)
+        for (size_t i = 0; i < s.size(); i++)
         {
             s[i] = toupper(s[i]);
         }
@@ -118,7 +118,7 @@ public:
     }
     static string AllLettersToLower(string s)
     {
-        for (int i = 0; i < s.size(); i++)
+        for (size_t i = 0; i < s.size(); i++)
         {
             s[i] = tolower(s[i]);
         }
@@ -137,7 +137,7 @@ public:
     }
     static string InvertAllChars(string s)
     {
-        for (int i = 0; i < s.size(); i++)
+        for (size_t i = 0; i < s.size(); i++)
         {
             s[i] = InvertChar(s[i]);
         }
@@ -161,7 +161,7 @@ public:
     static int countLowerLetters(string s)
     {
         int count = 0;
-        for (int i = 0; i < s.size(); i++)
+        for (size_t  i = 0; i < s.size(); i++)
         {
             if (is_lower(s[i]) && s[i] != ' ')
             {
@@ -178,7 +178,7 @@ public:
     static int countUpperLetters(string s)
     {
         int count = 0;
-        for (int i = 0; i < s.size(); i++)
+        for (size_t i = 0; i < s.size(); i++)
         {
             if (is_upper(s[i]) && s[i] != ' ')
             {
@@ -278,7 +278,7 @@ public:
     static void PosOfFirstLetterInWord(string s, vector<int> &PosFirstLatterInWord)
     {
         bool isFirstLetter = true;
-        for (short i = 0; i < s.length(); i++)
+        for (size_t i = 0; i < s.length(); i++)
         {
             if (s[i] != ' ' && isFirstLetter)
             {
@@ -343,7 +343,7 @@ public:
     {
         bool isFirstLetter = true;
         int count = 0;
-        for (short i = 0; i < S1.length(); i++)
+        for (size_t i = 0; i < S1.length(); i++)
         {
             if (S1[i] != ' ' && isFirstLetter)
             {
