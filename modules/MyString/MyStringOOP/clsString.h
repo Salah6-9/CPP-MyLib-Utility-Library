@@ -1,12 +1,51 @@
-#include "MyString.h"
+
+#pragma once
+
 #include <iostream>
+#include <string>
+#include <vector>
 #include <cctype>
-
 using namespace std;
-
-namespace MyString
+class clsString 
 {
-    void PrintFirstLetterOfEachWord(string S1)
+
+private:
+    string _Value;
+
+public:
+    clsString()
+    {
+
+        _Value = "";
+    }
+
+    clsString(string Value)
+    {
+
+        _Value = Value;
+    }
+
+
+    void SetValue(string Value) {
+        _Value = Value;
+    }
+
+    string GetValue() {
+        return _Value;
+    }
+
+    void print(string msg = "")
+    {
+    
+        cout << msg;
+        
+        cout << _Value<<endl;
+    }
+    void PrintFirstLetterOfEachWord ()
+    {
+        PrintFirstLetterOfEachWord(_Value);
+    }
+    static void PrintFirstLetterOfEachWord(string S1)
     {
         bool isFirstLetter = true;
         cout << "\nFirst letters of this string: \n";
@@ -20,7 +59,12 @@ namespace MyString
         }
     }
 
-    string UpperFirstLetterOfEachWord(string str)
+    clsString& UpperFirstLetterOfEachWord()
+    {
+        _Value = UpperFirstLetterOfEachWord(_Value);
+        return *this;
+    }
+    static string UpperFirstLetterOfEachWord(string str)
     {
         bool isFirstLetter = true;
         for (short i = 0; i < str.length(); i++)
@@ -34,7 +78,12 @@ namespace MyString
         return str;
     }
 
-    string LowerFirstLetterOfEachWord(string str)
+    clsString& LowerFirstLetterOfEachWord()
+    {
+        _Value = LowerFirstLetterOfEachWord(_Value);
+        return *this;
+    }
+    static string LowerFirstLetterOfEachWord(string str)
     {
         bool isFirstLetter = true;
         for (short i = 0; i < str.length(); i++)
@@ -48,7 +97,12 @@ namespace MyString
         return str;
     }
 
-    string AllLettersToUpper(string s)
+    clsString& AllLettersToUpper()
+    {
+        _Value = AllLettersToUpper(_Value);
+        return *this;
+    }
+    static string AllLettersToUpper(string s)
     {
         for (int i = 0; i < s.size(); i++)
         {
@@ -57,7 +111,12 @@ namespace MyString
         return s;
     }
 
-    string AllLettersToLower(string s)
+    clsString& AllLettersToLower()
+    {
+        _Value = AllLettersToLower(_Value);
+        return *this;
+    }
+    static string AllLettersToLower(string s)
     {
         for (int i = 0; i < s.size(); i++)
         {
@@ -66,12 +125,17 @@ namespace MyString
         return s;
     }
 
-    char InvertChar(char c)
+    static char InvertChar(char c)
     {
         return (c == toupper(c) ? tolower(c) : toupper(c));
     }
 
-    string InvertALLChar(string s)
+    clsString& InvertAllChars()
+    {
+        _Value = InvertAllChars(_Value);
+        return *this;
+    }
+    static string InvertAllChars(string s)
     {
         for (int i = 0; i < s.size(); i++)
         {
@@ -80,17 +144,21 @@ namespace MyString
         return s;
     }
 
-    bool is_upper(char c)
+    static bool is_upper(char c)
     {
         return (c == toupper(c) ? true : false);
     }
 
-    bool is_lower(char c)
+    static bool is_lower(char c)
     {
         return (c == tolower(c) ? true : false);
     }
 
-    int countLowerLatter(string s)
+    int countLowerLetters(){
+        
+        return countLowerLetters(_Value);
+    }
+    static int countLowerLetters(string s)
     {
         int count = 0;
         for (int i = 0; i < s.size(); i++)
@@ -103,7 +171,11 @@ namespace MyString
         return count;
     }
 
-    int countUpperLatter(string s)
+    int countUpperLetters()
+    {
+        return countUpperLetters(_Value);
+    }
+    static int countUpperLetters(string s)
     {
         int count = 0;
         for (int i = 0; i < s.size(); i++)
@@ -116,7 +188,11 @@ namespace MyString
         return count;
     }
 
-    int CountLatterInString(string s, char c)
+    int CountCharacterInString(char c)
+    {
+        return CountCharacterInString(_Value, c);
+    }
+    static int CountCharacterInString(string s, char c)
     {
         int count = 0;
         for (int i = 0; i < s.length(); i++)
@@ -129,7 +205,11 @@ namespace MyString
         return count;
     }
 
-    int CountLatterInStringMatchCase(string s, char c, bool matchCase)
+    int CountCharacterInStringMatchCase(char c, bool matchCase)
+    {
+        return CountCharacterInStringMatchCase(_Value, c, matchCase);
+    }
+    static int CountCharacterInStringMatchCase(string s, char c, bool matchCase)
     {
         int count = 0;
         for (int i = 0; i < s.length(); i++)
@@ -152,18 +232,23 @@ namespace MyString
         return count;
     }
 
-    bool is_Vowles(char Ch1)
+
+    static bool is_Vowels(char Ch1)
     {
         Ch1 = tolower(Ch1);
         return ((Ch1 == 'a') || (Ch1 == 'e') || (Ch1 == 'i') || (Ch1 == 'o') || (Ch1 == 'u'));
     }
 
-    int CountVowles(string s)
+    int CountVowels()
+    {
+        return CountVowels(_Value);
+    }
+    static int CountVowels(string s)
     {
         int count = 0;
         for (int i = 0; i < s.length(); i++)
         {
-            if (is_Vowles(s[i]))
+            if (is_Vowels(s[i]))
             {
                 count++;
             }
@@ -171,34 +256,46 @@ namespace MyString
         return count;
     }
 
-    void PrintALlVowlesInString(string s)
+    void PrintALlVowelsInString()
+    {
+        PrintALlVowelsInString(_Value);
+    }
+    static void PrintALlVowelsInString(string s)
     {
         for (int i = 0; i < s.length(); i++)
         {
-            if (is_Vowles(s[i]))
+            if (is_Vowels(s[i]))
             {
                 cout << s[i] << " ";
             }
         }
     }
 
-    void PosOfFirstLatterInWord(string s, vector<int> &PosOfFirstLatterInWord)
+    void PosOfFirstLetterInWord(vector<int> &PosFirstLatterInWord)
+    {
+        PosOfFirstLetterInWord(_Value, PosFirstLatterInWord);
+    }
+    static void PosOfFirstLetterInWord(string s, vector<int> &PosFirstLatterInWord)
     {
         bool isFirstLetter = true;
         for (short i = 0; i < s.length(); i++)
         {
             if (s[i] != ' ' && isFirstLetter)
             {
-                PosOfFirstLatterInWord.push_back(i);
+                PosFirstLatterInWord.push_back(i);
             }
             isFirstLetter = (s[i] == ' ' ? true : false);
         }
     }
 
-    void PrintEachWordInString(string s)
+    void PrintEachWordInString()
+    {
+        PrintEachWordInString(_Value);
+    }
+    static void PrintEachWordInString(string s)
     {
         vector<int> vPosOfFirstLatterInWord;
-        PosOfFirstLatterInWord(s, vPosOfFirstLatterInWord);
+        PosOfFirstLetterInWord(s, vPosOfFirstLatterInWord);
         string word = "";
         for (int i = 0; i < vPosOfFirstLatterInWord.size(); i++)
         {
@@ -213,7 +310,11 @@ namespace MyString
         }
     }
 
-    void PrintEachWordInStringver2(string S1)
+    void PrintEachWordInStringver2()
+    {
+        PrintEachWordInStringver2(_Value);
+    }
+    static void PrintEachWordInStringver2(string S1)
     {
         string delim = " ";
         cout << "\nYour string wrords are: \n\n";
@@ -234,7 +335,11 @@ namespace MyString
         }
     }
 
-    int CountWordInString(string S1)
+    int CountWordInString()
+    {
+        return CountWordInString(_Value);
+    }
+    static int CountWordInString(string S1)
     {
         bool isFirstLetter = true;
         int count = 0;
@@ -249,7 +354,11 @@ namespace MyString
         return count;
     }
 
-    vector<string> SplitEachWordInString(string S1, string del)
+    vector<string> SplitEachWordInString(string delm=" ")
+    {
+        return SplitEachWordInString(_Value, delm);
+    }
+    static vector<string> SplitEachWordInString(string S1, string del=" ")
     {
         vector<string> SplitString;
         string delim = del;
@@ -271,7 +380,11 @@ namespace MyString
         return SplitString;
     }
 
-    int FindFirstNonSpaceIndex(const string& s)
+    int FindFirstNonSpaceIndex()
+    {
+        return FindFirstNonSpaceIndex(_Value);
+    }
+    static int FindFirstNonSpaceIndex(const string& s)
     {
         if (s.empty())
             return -1;
@@ -285,7 +398,11 @@ namespace MyString
         return -1;
     }
 
-    int FindLastCharPosition(const string& s)
+    int FindLastCharPosition()
+    {
+        return FindLastCharPosition(_Value);
+    }
+    static int FindLastCharPosition(const string& s)
     {
         if (s.empty())
             return -1;
@@ -299,7 +416,12 @@ namespace MyString
         return -1;
     }
 
-    string LeftTrim(const string& s)
+    clsString& LeftTrim()
+    {
+        _Value = LeftTrim(_Value);
+        return *this;
+    }
+    static string LeftTrim(const string& s)
     {
         int pos = FindFirstNonSpaceIndex(s);
 
@@ -309,7 +431,12 @@ namespace MyString
         return "";
     }
 
-    string RightTrim(const string& s)
+    clsString& RightTrim()
+    {
+        _Value = RightTrim(_Value);
+        return *this;
+    }
+    static string RightTrim(const string& s)
     {
         int pos = FindLastCharPosition(s);
 
@@ -319,12 +446,17 @@ namespace MyString
         return "";
     }
 
-    string TrimSpaces(const string& s)
+    clsString& TrimSpaces()
+    {
+        _Value = TrimSpaces(_Value);
+        return *this;
+    }
+    static string TrimSpaces(const string& s)
     {
         return RightTrim(LeftTrim(s));
     }
 
-    string joinStrings(vector<string>& vStr, string delm)
+    static string joinStrings(vector<string>& vStr, string delm=" ")
     {
         string joindString = "";
         for (string s : vStr)
@@ -334,19 +466,16 @@ namespace MyString
         return joindString.substr(0, joindString.length() - delm.length());
     }
 
-    string joinStrings(string arrStr[], int len, string delm)
+    clsString& ReversString(string delm=" ")
     {
-        string joindString = "";
-        for (int i = 0; i < len; i++)
-        {
-            joindString = joindString + arrStr[i] + delm;
-        }
-        return joindString.substr(0, joindString.length() - delm.length());
+        _Value = ReversString(_Value, delm);
+        return *this;
     }
-
-    string ReversString(string str, string delm)
+    static string ReversString(string str, string delm)
     {
-        vector<string> vStr = SplitEachWordInString(str);
+        vector<string> vStr = SplitEachWordInString(str, delm);
+        
+        if (vStr.empty()) return "";
         string RevString = "";
         for (int i = vStr.size() - 1; i >= 0; i--)
         {
@@ -356,22 +485,27 @@ namespace MyString
         return RevString.substr(0, RevString.length() - delm.length());
     }
 
-    string ReplaceWordString(string str, string StringToReplace, string ReplaceTo, bool MatchCase)
+    clsString& ReplaceWordString(string StringToReplace, string ReplaceTo, bool MatchCase)
     {
-        vector<string> vStr = SplitEachWordInString(str);
+        _Value = ReplaceWordString(_Value, StringToReplace, ReplaceTo, MatchCase);
+        return *this;
+    }
+    static string ReplaceWordString(string str, string StringToReplace, string ReplaceTo, bool MatchCase)
+    {
+        vector<string> vStr = SplitEachWordInString(str," ");
 
         for (int i = 0; i < vStr.size(); i++)
         {
             if (MatchCase)
             {
-                if (AllLettersToUpper(vStr[i]) == AllLettersToUpper(TrimSpaces(StringToReplace)))
+                if (vStr[i] == TrimSpaces(StringToReplace))
                 {
                     vStr[i] = TrimSpaces(ReplaceTo);
                 }
             }
             else
             {
-                if (vStr[i] == TrimSpaces(StringToReplace))
+                if (AllLettersToUpper(vStr[i]) == AllLettersToUpper(TrimSpaces(StringToReplace)))
                 {
                     vStr[i] = TrimSpaces(ReplaceTo);
                 }
@@ -382,8 +516,13 @@ namespace MyString
 
         return NewString;
     }
-
-    string ReplaceString(string str, string StringToReplace, string ReplaceTo)
+    
+    clsString& ReplaceString(string StringToReplace, string ReplaceTo)
+    {
+        _Value = ReplaceString(_Value, StringToReplace, ReplaceTo);
+        return *this;
+    }
+    static string ReplaceString(string str, string StringToReplace, string ReplaceTo)
     {
         size_t pos = str.find(StringToReplace);
 
@@ -396,16 +535,26 @@ namespace MyString
         return str;
     }
 
-    string RemovePunctuationsFromString(string S1, string replace)
+    clsString& RemovePunctuationsFromString(string replace="")
     {
-        string S2 = replace;
-        for (short i = 0; i < S1.length(); i++)
+        _Value= RemovePunctuationsFromString(_Value, replace);
+        return *this;
+    }
+    static string RemovePunctuationsFromString(string S1, string replace)
+    {
+        string S2 = "";
+        for (char c : S1   )
         {
-            if (!ispunct(S1[i]))
+            if (!ispunct(c ))
             {
-                S2 += S1[i];
+                S2 += c;
+            }else
+            {
+                S2 += replace;
             }
         }
         return S2;
     }
-}
+
+
+};
