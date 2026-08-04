@@ -1,5 +1,5 @@
 #include "MyDate.h"
-#include "../MyIO.h"
+#include "../../MyLib.h"
 #include <iostream>
 #include <iomanip>
 #include <ctime>
@@ -43,7 +43,7 @@ namespace MyDate
 
     int DaysInMonth(short Month, short Year)
     {
-        static const int arrNumberOfDays[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+        static const int arrNumberOfDays[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         return (Month == 2) ? (is_leapYear(Year) ? 29 : 28) : arrNumberOfDays[Month];
     }
 
@@ -71,7 +71,7 @@ namespace MyDate
 
     string DayName(short d)
     {
-        static const string Days[] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+        static const string Days[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         return Days[d];
     }
 
@@ -85,13 +85,13 @@ namespace MyDate
 
     string MonthName(short month)
     {
-        static const string Month[] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+        static const string Month[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         return Month[month - 1];
     }
 
     void PrintMonthCalendar(short month, short year)
     {
-        static const string Days[] = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+        static const string Days[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
         short startDay = dGregoianCalendar(1, month, year),
               maxDays = DaysInMonth(month, year);
         cout << "_______________" << MonthName(month) << "_______________\n";
@@ -205,7 +205,8 @@ namespace MyDate
     sDate ReadFullDate(string title)
     {
         sDate Date;
-        cout << "\n" << title;
+        cout << "\n"
+             << title;
         Date.year = MyIO::ReadPositiveNumber("\nEnter a year : ");
         Date.month = MyIO::Read_num_in_range("Enter a Month Number [1 to 12]: ", 1, 12);
         short maxDays = DaysInMonth(Date.month, Date.year);
@@ -323,7 +324,7 @@ namespace MyDate
     {
         sDate Date;
         time_t t = time(0);
-        tm* now = localtime(&t);
+        tm *now = localtime(&t);
         Date.day = now->tm_mday;
         Date.month = now->tm_mon + 1;
         Date.year = now->tm_year + 1900;
@@ -336,14 +337,14 @@ namespace MyDate
         return DiffInDays(BirhDate, NowDate, true);
     }
 
-    string DateToString(const sDate& Date)
+    string DateToString(const sDate &Date)
     {
         return to_string(Date.day) + "/" +
                to_string(Date.month) + "/" +
                to_string(Date.year);
     }
 
-    bool IsDate1BeforeDate2(const sDate& Date1, const sDate& Date2)
+    bool IsDate1BeforeDate2(const sDate &Date1, const sDate &Date2)
     {
         return (Date1.year < Date2.year) ||
                (Date1.year == Date2.year && Date1.month < Date2.month) ||
@@ -352,38 +353,39 @@ namespace MyDate
                 Date1.day < Date2.day);
     }
 
-    int GregorianDayOfWeek(const sDate& Date)
+    int GregorianDayOfWeek(const sDate &Date)
     {
         int a = (14 - Date.month) / 12;
         int y = Date.year - a;
         int m = Date.month + (12 * a) - 2;
 
         return (Date.day + y + (y / 4) - (y / 100) +
-                (y / 400) + ((31 * m) / 12)) % 7;
+                (y / 400) + ((31 * m) / 12)) %
+               7;
     }
 
-    bool IsEndOfWeek(const sDate& Date)
+    bool IsEndOfWeek(const sDate &Date)
     {
         return GregorianDayOfWeek(Date) == 6;
     }
 
-    bool IsWeekEnd(const sDate& Date)
+    bool IsWeekEnd(const sDate &Date)
     {
         int dayIndex = GregorianDayOfWeek(Date);
         return (dayIndex == 5 || dayIndex == 6);
     }
 
-    bool IsBusinessDay(const sDate& Date)
+    bool IsBusinessDay(const sDate &Date)
     {
         return !IsWeekEnd(Date);
     }
 
-    int DaysUntilEndOfWeek(const sDate& Date)
+    int DaysUntilEndOfWeek(const sDate &Date)
     {
         return 6 - GregorianDayOfWeek(Date);
     }
 
-    int DaysUntilEndOfMonth(const sDate& Date)
+    int DaysUntilEndOfMonth(const sDate &Date)
     {
         return (DaysInMonth(Date.month, Date.year) - Date.day) + 1;
     }
@@ -395,7 +397,7 @@ namespace MyDate
         return Date;
     }
 
-    int DaysUntilEndOfYear(const sDate& Date)
+    int DaysUntilEndOfYear(const sDate &Date)
     {
         return DiffInDays(Date, EndOfYear(Date), true);
     }
@@ -427,4 +429,241 @@ namespace MyDate
         }
         return DateFrom;
     }
+
+    sDate DecreaseDateByOneDay(sDate Date)
+    {
+
+        if (is_LastDayInMonth(Date))
+        {
+            if (is_LastMonthInYear(Date.month))
+            {
+                Date.day = 1;
+                Date.month = 1;
+                Date.year++;
+            }
+            else
+            {
+                Date.day = 1;
+                Date.month++;
+            }
+        }
+        else
+        {
+            Date.day++;
+        }
+
+        return Date;
+    }
+
+    bool is_FirstDayInMonth(int Day)
+    {
+        return (Day == 1);
+    }
+    bool is_FirstMonthInYear(int month)
+    {
+        return month == 1;
+    }
+
+    int WeekToDays(int Week)
+    {
+        return Week * 7;
+    }
+
+    sDate DecreaseDateByXDay(sDate Date, int X = 1)
+    {
+        sDate NewDate = Date;
+        for (int i = 0; i < X; i++)
+        {
+            NewDate = DecreaseDateByOneDay(NewDate);
+        }
+        return NewDate;
+    }
+
+    sDate DecreaseDateByOneAndXWeek(sDate Date, int X = 1)
+    {
+        for (int i = 0; i < X; i++)
+        {
+
+            Date = DecreaseDateByXDay(Date, 7);
+        }
+        return Date;
+    }
+
+    sDate DecreaseDateByOneMonth(sDate Date)
+    {
+        if (is_FirstMonthInYear(Date.month))
+        {
+            Date.month = 12;
+            Date.year--;
+        }
+        else
+        {
+            Date.month--;
+        }
+        short maxDaysInNewMonth = MyLib::DaysInMonth(Date.month, Date.year);
+        if (Date.day > maxDaysInNewMonth)
+            Date.day = maxDaysInNewMonth;
+
+        return Date;
+    }
+
+    sDate DecreaseDateByOneAndXMonth(sDate Date, int X = 1)
+    {
+        for (int i = 0; i < X; i++)
+        {
+            Date = DecreaseDateByOneMonth(Date);
+        }
+        return Date;
+    }
+
+    sDate DecreaseDateByOneYear(sDate Date)
+    {
+        Date.year--;
+        return Date;
+    }
+
+    sDate DecreaseDateByXYears(sDate Date, short Years)
+    {
+        for (short i = 1; i <= Years; i++)
+        {
+            Date = DecreaseDateByOneYear(Date);
+        }
+        return Date;
+    }
+
+    sDate DecreaseDateByOneAndXYearFaster(sDate Date, int X = 1)
+    {
+        Date.year -= X;
+        if (Date.month == 2 && Date.day == 29 && !MyLib::is_leapYear(Date.year))
+            Date.day = 28;
+
+        return Date;
+    }
+
+    sDate DecreaseDateByOneAndXDecades(sDate Date, int X = 1)
+    {
+        for (int i = 0; i < X; i++)
+        {
+            Date = DecreaseDateByOneAndXYearFaster(Date, 10);
+        }
+
+        return Date;
+    }
+
+    sDate DecreaseDateByOneAndXDecadesFaster(sDate Date, int X = 1)
+    {
+        return DecreaseDateByOneAndXYearFaster(Date, 10 * X);
+    }
+
+    sDate DecreaseDateByOneCentury(sDate Date)
+    {
+        return DecreaseDateByOneAndXYearFaster(Date, 100);
+    }
+
+    sDate DecreaseDateByOneMillennium(sDate Date)
+    {
+        return DecreaseDateByOneAndXYearFaster(Date, 1000);
+    }
+
+    sDate IncreaseDateByOneAndXWeek(sDate Date, int X = 1)
+    {
+
+        int DaysToAdd = WeekToDays(X);
+
+        return AddDaysToDate(Date.day, Date.month, Date.year, DaysToAdd);
+    }
+
+    sDate IncreaseDateByOneAndXMonth(sDate Date, int X = 1)
+    {
+        Date.month += X;
+
+        while (Date.month > 12)
+        {
+            Date.month -= 12;
+            Date.year++;
+        }
+
+        short maxDaysInNewMonth = MyLib::DaysInMonth(Date.month, Date.year);
+        if (Date.day > maxDaysInNewMonth)
+        {
+            Date.day = maxDaysInNewMonth;
+        }
+
+        return Date;
+    }
+
+    sDate IncreaseDateByOneMonth(sDate Date)
+    {
+        if (Date.month == 12)
+        {
+            Date.month = 1;
+            Date.year++;
+        }
+        else
+        {
+            Date.month++;
+        }
+        return Date;
+    }
+
+    sDate IncreaseDateByOneYear(sDate Date)
+    {
+        Date.year++;
+        return Date;
+    }
+
+    sDate IncreaseDateByXYears(sDate Date, short Years)
+    {
+        for (short i = 1; i <= Years; i++)
+        {
+            Date = IncreaseDateByOneYear(Date);
+        }
+        return Date;
+    }
+
+    sDate IncreaseDateByOneAndXYearFaster(sDate Date, int X = 1)
+    {
+        Date.year += X;
+        if (Date.month == 2 && Date.day == 29 && !MyLib::is_leapYear(Date.year))
+            Date.day = 28;
+
+        return Date;
+    }
+
+    sDate IncreaseDateByOneAndXDecades(sDate Date, int X = 1)
+    {
+        for (int i = 0; i < X; i++)
+        {
+            Date = IncreaseDateByOneAndXYearFaster(Date, 10);
+        }
+
+        return Date;
+    }
+
+    sDate IncreaseDateByOneAndXDecadesFaster(sDate Date, int X = 1)
+    {
+        return IncreaseDateByOneAndXYearFaster(Date, 10 * X);
+    }
+
+    sDate IncreaseDateByOneCentury(sDate Date)
+    {
+        Date.year += 100;
+        if (Date.month == 2 && Date.day == 29 && !MyLib::is_leapYear(Date.year))
+        {
+            Date.day = 28;
+        }
+        return Date;
+    }
+
+    sDate IncreaseDateByOneMillennium(sDate Date)
+    {
+        Date.year += 1000;
+        if (Date.month == 2 && Date.day == 29 && !MyLib::is_leapYear(Date.year))
+        {
+            Date.day = 28;
+        }
+        return Date;
+    }
+
+
 }

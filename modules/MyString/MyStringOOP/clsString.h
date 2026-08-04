@@ -354,11 +354,11 @@ public:
         return count;
     }
 
-    vector<string> SplitEachWordInString(string delm=" ")
+    vector<string> SplitEachWordInString(string delm)
     {
         return SplitEachWordInString(_Value, delm);
     }
-    static vector<string> SplitEachWordInString(string S1, string del=" ")
+    static vector<string> SplitEachWordInString(string S1, string del)
     {
         vector<string> SplitString;
         string delim = del;
