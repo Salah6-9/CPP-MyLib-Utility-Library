@@ -5,6 +5,7 @@ using namespace std;
 
 namespace MyIO
 {
+    
     int ReadPositiveNumber(string Message)
     {
         int Number = 0;

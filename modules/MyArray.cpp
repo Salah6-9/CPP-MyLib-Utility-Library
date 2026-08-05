@@ -42,7 +42,7 @@ namespace MyArray
             array[i] = i + 1;
     }
 
-    void FillArray_random(int& arrLength, int* array)
+    void FillArrayRandomNumbers(int& arrLength, int* array)
     {
         cout << "\nEnter number of elements:\n";
         cin >> arrLength;

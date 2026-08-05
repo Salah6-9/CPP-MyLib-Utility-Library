@@ -5,7 +5,7 @@
 using namespace std;
 
 namespace MyMath
-{
+{   
     int RandomNum(int from, int to)
     {
         return rand() % (to - from + 1) + from;
@@ -18,7 +18,10 @@ namespace MyMath
         b = temp;
     }
 
-    bool Num1LessThenNum2(int Num1, int Num2)
+    bool IsNumberBetween(int num ,int frome,int to){
+        return ((num > frome) && (num <to));
+    }
+    bool IsNum1LessThenNum2(int Num1, int Num2)
     {
         return (Num1 < Num2) ? true : false;
     }

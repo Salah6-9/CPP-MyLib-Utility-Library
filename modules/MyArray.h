@@ -9,7 +9,7 @@ namespace MyArray
     void Readarray(int N, int array[]);
     void Readarray(int N, std::string array[]);
     void Readarray_auto(int from, int to, int array[]);
-    void FillArray_random(int& arrLength, int* array);
+    void FillArrayRandomNumbers(int& arrLength, int* array);
 
     void Copy_array(int arrLength, int source[], int dest[]);
     void Copy_array_reverse(int arrLength, int source[], int dest[]);

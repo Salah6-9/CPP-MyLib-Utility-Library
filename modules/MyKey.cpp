@@ -37,4 +37,5 @@ namespace MyKey
         for (int i = 0; i < arrLength; i++)
             array[i] = generatkey();
     }
+
 }

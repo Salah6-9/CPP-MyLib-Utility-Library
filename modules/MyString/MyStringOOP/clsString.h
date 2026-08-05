@@ -137,7 +137,7 @@ public:
     }
     static string InvertAllChars(string s)
     {
-        for (size_t i = 0; i < s.size(); i++)
+        for (int i = 0; i < s.size(); i++)
         {
             s[i] = InvertChar(s[i]);
         }

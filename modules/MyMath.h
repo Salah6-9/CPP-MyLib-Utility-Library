@@ -9,7 +9,7 @@ namespace MyMath
 
     int RandomNum(int from, int to);
     void Swap(int& a, int& b);
-    bool Num1LessThenNum2(int Num1, int Num2);
+    bool IsNum1LessThenNum2(int Num1, int Num2);
     int ReverseDigits(int num);
     bool IsPalindrome(int num);
     encheckpeime checkprime(int n);
