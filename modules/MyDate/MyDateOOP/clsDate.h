@@ -59,9 +59,9 @@ public:
     void setDay(short day) { _day = day; }
     void setMonth(short month) { _month = month; }
     void setYear(short year) { _year = year; }
-    short getDay() { return _day; }
-    short getMonth() { return _month; }
-    short getYear() { return _year; }
+    short getDay() const { return _day; }
+    short getMonth() const { return _month; }
+    short getYear() const { return _year; }
 
     void print(string msg = "")
     {
@@ -629,7 +629,7 @@ public:
         return DateFrom;
     }
 
-    bool IsValidDate()
+    bool IsValidDate() const
     {
         return IsValidDate(*this);
     }
@@ -1017,7 +1017,7 @@ public:
     {
         return CompareDates(*this, Date2);
     }
-    static enDateCompare CompareDates(const clsDate& Date1, const clsDate& Date2)
+    static enDateCompare CompareDates(const clsDate &Date1, const clsDate &Date2)
     {
         if (is_Date1BeforeDate2(Date1, Date2))
             return enDateCompare::Before;
@@ -1026,4 +1026,34 @@ public:
 
         return enDateCompare::After;
     }
+
+    bool IsDate1BeforThenDate2 (clsDate Date2)
+    {
+        return IsDate1BeforThenDate2(*this , Date2);
+    }
+    static bool IsDate1BeforThenDate2(clsDate Date1, clsDate Date2)
+    {
+        return (Date1._year < Date2._year) ||
+               (Date1._year == Date2._year && Date1._month < Date2._month) ||
+               (Date1._year == Date2._year && Date1._month == Date2._month && Date1._day < Date2._day);
+    }
+
+    bool IsDate1AfterDate2 (clsDate Date2)
+    {
+        return IsDate1AfterDate2(*this , Date2);
+    }
+    static bool IsDate1AfterDate2(clsDate Date1, clsDate Date2)
+    {
+        return (!IsDate1BeforThenDate2(Date1, Date2)) && (!is_Date1EqualDate2(Date1, Date2));
+    }
+
+    bool IsDateBetween(clsDate DateFrom, clsDate DateTo){
+        return IsDateBetween(*this , DateFrom , DateTo);
+    }
+    static bool IsDateBetween(clsDate Date, clsDate DateFrom, clsDate DateTo)
+{
+    return ((IsDate1BeforThenDate2(DateFrom, Date) || is_Date1EqualDate2(DateFrom, Date)) &&
+            (IsDate1BeforThenDate2(Date, DateTo) || is_Date1EqualDate2(Date, DateTo)));
+}
+
 };

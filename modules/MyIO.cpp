@@ -1,5 +1,6 @@
 #include "MyIO.h"
 #include <iostream>
+#include <limits>
 
 using namespace std;
 
@@ -12,6 +13,13 @@ namespace MyIO
         do {
             cout << Message;
             cin >> Number;
+            //confirm it a number  not a string 
+            if (cin.fail())
+            {
+                cout<<"Invalid Input \n";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
         } while (Number <= 0);
         return Number;
     }
@@ -22,6 +30,13 @@ namespace MyIO
         do {
             cout << Message;
             cin >> Number;
+            //confirm it a number  not a string 
+            if (cin.fail())
+            {
+                cout<<"Invalid Input \n";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
         } while (Number <= 0);
         return Number;
     }
@@ -32,6 +47,13 @@ namespace MyIO
         do {
             cout << output;
             cin >> Confirm;
+            //confirm it a number  not a string 
+            if (cin.fail())
+            {
+                cout<<"Invalid Input \n";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
         } while (Confirm < from || Confirm > to);
         return Confirm;
     }

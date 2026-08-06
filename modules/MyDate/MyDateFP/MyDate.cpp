@@ -215,7 +215,7 @@ namespace MyDate
         return Date;
     }
 
-    bool is_Date1BeforThenDate2(sDate Date1, sDate Date2)
+    bool IsDate1BeforThenDate2(sDate Date1, sDate Date2)
     {
         return (Date1.year < Date2.year) ||
                (Date1.year == Date2.year && Date1.month < Date2.month) ||
@@ -265,7 +265,7 @@ namespace MyDate
     {
         int TotalDiffDays = 0;
 
-        if (!is_Date1BeforThenDate2(Date1, Date2))
+        if (!IsDate1BeforThenDate2(Date1, Date2))
         {
             sDate temp = Date1;
             Date1 = Date2;
@@ -306,12 +306,12 @@ namespace MyDate
     {
         int DaysDiff = 0;
         short SwapFlag = 1;
-        if (!is_Date1BeforThenDate2(Date1, Date2))
+        if (!IsDate1BeforThenDate2(Date1, Date2))
         {
             swapDate(Date1, Date2);
             SwapFlag = -1;
         }
-        while (is_Date1BeforThenDate2(Date1, Date2))
+        while (IsDate1BeforThenDate2(Date1, Date2))
         {
             DaysDiff++;
             Date1 = IncreaseDateByOneDay(Date1);
@@ -405,7 +405,7 @@ namespace MyDate
     int CalculateVacationDays(sDate DateFrom, sDate DateTo)
     {
         int Days = 0;
-        while (is_Date1BeforThenDate2(DateFrom, DateTo))
+        while (IsDate1BeforThenDate2(DateFrom, DateTo))
         {
             if (IsBusinessDay(DateFrom))
                 Days++;

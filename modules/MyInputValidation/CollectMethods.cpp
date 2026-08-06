@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <cstdlib>
+#include <limits>
 #include "../MyDate/MyDateOOP/clsDate.h"
 using namespace std;
 clsDate date;
@@ -25,14 +26,9 @@ static bool is_leapYear(int num)
     return (num % 400 == 0) || (num % 4 == 0 && num % 100 != 0);
 }
 
-static bool is_Date1EqualDate2(clsDate Date1, clsDate Date2)
-{
-    return (Date1._year == Date2._year && Date1._month == Date2._month && Date1._day == Date2._day);
-}
-
 static bool is_LastDayInMonth(clsDate Date)
 {
-    return (Date._day == clsDate::DaysInMonth(Date._month, Date._year));
+    return (Date.getDay() == clsDate::DaysInMonth(Date.getMonth(), Date.getYear()));
 }
 
 static bool is_LastMonthInYear(int month)
@@ -42,11 +38,11 @@ static bool is_LastMonthInYear(int month)
 
 static bool is_Date1BeforeDate2(const clsDate &Date1, const clsDate &Date2)
 {
-    return (Date1._year < Date2._year) ||
-           (Date1._year == Date2._year && Date1._month < Date2._month) ||
-           (Date1._year == Date2._year &&
-            Date1._month == Date2._month &&
-            Date1._day < Date2._day);
+    return (Date1.getYear() < Date2.getYear()) ||
+           (Date1.getYear() == Date2.getYear() && Date1.getMonth() < Date2.getMonth()) ||
+           (Date1.getYear() == Date2.getYear() &&
+            Date1.getMonth() == Date2.getMonth() &&
+            Date1.getDay() < Date2.getDay());
 }
 
 static bool is_EndOfWeek(const clsDate &Date)
@@ -65,40 +61,31 @@ static bool IsBusinessDay(const clsDate &Date)
     return !IsWeekEnd(Date);
 }
 
-static bool IsValidDate(const clsDate &Date)
+static bool IsValidateDate(const clsDate &Date)
 {
-    if (Date._month < 1 || Date._month > 12)
-        return false;
-    if (Date._day < 1 || Date._day > DaysInMonth(Date._month, Date._year))
-        return false;
-    return true;
-}
 
-static bool is_Date1EqualDate2(clsDate Date1, clsDate Date2)
-{
-    return (Date1._year == Date2._year && Date1._month == Date2._month && Date1._day == Date2._day);
-}
-
-static bool is_Date1BeforeDate2(const clsDate &Date1, const clsDate &Date2)
-{
-    return (Date1._year < Date2._year) ||
-           (Date1._year == Date2._year && Date1._month < Date2._month) ||
-           (Date1._year == Date2._year &&
-            Date1._month == Date2._month &&
-            Date1._day < Date2._day);
+    return Date.IsValidDate();
 }
 
 int ReadPositiveNumber(string Message)
 {
     int Number = 0;
+    
     do
     {
         cout << Message;
         cin >> Number;
+        //confirm it a number  not a string 
+        if (cin.fail())
+        {
+            cout<<"Invalid Input \n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
     } while (Number <= 0);
     return Number;
 }
-
+ 
 double ReadPositiveDoubleNumber(string Message)
 {
     double Number = 0;
@@ -106,6 +93,13 @@ double ReadPositiveDoubleNumber(string Message)
     {
         cout << Message;
         cin >> Number;
+        //confirm it a number  not a string 
+        if (cin.fail())
+        {
+            cout<<"Invalid Input \n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
     } while (Number <= 0);
     return Number;
 }
@@ -117,6 +111,13 @@ short Read_num_in_range(string output, int from, int to)
     {
         cout << output;
         cin >> Confirm;
+        //confirm it a number  not a string 
+        if (cin.fail())
+        {
+            cout<<"Invalid Input \n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
     } while (Confirm < from || Confirm > to);
     return Confirm;
 }
@@ -156,4 +157,33 @@ void multp()
             cout << (i + 1) * (j + 1) << "\t";
         cout << endl;
     }
+}
+
+
+
+static bool is_Date1EqualDate2(clsDate Date1, clsDate Date2)
+{
+    return (Date1.getYear() == Date2.getYear() && Date1.getMonth() == Date2.getMonth() && Date1.getDay() == Date2.getDay());
+}
+
+static bool IsDate1BeforThenDate2(clsDate Date1, clsDate Date2)
+{
+    return (Date1.getYear() < Date2.getYear()) ||
+           (Date1.getYear() == Date2.getYear() && Date1.getMonth() < Date2.getMonth()) ||
+           (Date1.getYear() == Date2.getYear() && Date1.getMonth() == Date2.getMonth() && Date1.getDay() < Date2.getDay());
+}
+    bool IsDate1AfterDate2(clsDate Date1, clsDate Date2)
+    {
+        return (!IsDate1BeforThenDate2(Date1, Date2)) && (!is_Date1EqualDate2(Date1, Date2));
+    }
+
+   
+    bool IsDate1AfterDate2(clsDate Date1, clsDate Date2)
+{
+    return (!IsDate1BeforThenDate2(Date1, Date2)) && (!is_Date1EqualDate2(Date1, Date2));
+}
+static bool IsDateBetween(clsDate Date, clsDate DateFrom, clsDate DateTo)
+{
+    return ((IsDate1BeforThenDate2(DateFrom, Date) || is_Date1EqualDate2(DateFrom, Date)) &&
+            (IsDate1BeforThenDate2(Date, DateTo) || is_Date1EqualDate2(Date, DateTo)));
 }
