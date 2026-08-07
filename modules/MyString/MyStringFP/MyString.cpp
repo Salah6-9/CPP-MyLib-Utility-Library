@@ -259,12 +259,13 @@ namespace MyString
         while ((pos = S1.find(delim)) != std::string::npos)
         {
             sWord = S1.substr(0, pos);
-            if (sWord != "")
-            {
+            //if (sWord != "")
+            //{
                 SplitString.push_back(sWord);
-            }
+            //}
             S1.erase(0, pos + delim.length());
         }
+        
         if (S1 != "")
         {
             SplitString.push_back(S1);
