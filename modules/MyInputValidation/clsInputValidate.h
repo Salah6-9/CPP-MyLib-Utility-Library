@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
@@ -69,7 +70,7 @@ public:
         return Date.IsValidDate();
     }
 
-    static int ReadPositiveNumber(string Message)
+    static int ReadPositiveNumber(string Message = "", string errorMsg = "")
     {
         int Number = 0;
 
@@ -80,7 +81,7 @@ public:
             // confirm it a number  not a string
             if (cin.fail())
             {
-                cout << "Invalid Input \n";
+                cout << errorMsg;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
@@ -88,7 +89,7 @@ public:
         return Number;
     }
 
-    static double ReadPositiveDoubleNumber(string Message)
+    static double ReadPositiveDbleNumber(string Message = "", string errorMsg = "")
     {
         double Number = 0;
         do
@@ -98,7 +99,7 @@ public:
             // confirm it a number  not a string
             if (cin.fail())
             {
-                cout << "Invalid Input \n";
+                cout << errorMsg;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
@@ -106,27 +107,45 @@ public:
         return Number;
     }
 
-    static short Read_num_in_range(string output, int from, int to)
+    static double Read_Dblnum_in_range(string Message = "", string errorMsg = "", double from = 0, double to = 100)
+    {
+        double number;
+        do
+        {
+            cout << Message;
+            cin >> number;
+            // confirm it a number  not a string
+            if (cin.fail())
+            {
+                cout << errorMsg;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
+        } while (number < from || number > to);
+        return number;
+    }
+
+    static short Read_num_in_range( int From, int To,string Message = "", string errorMsg = "")
     {
         int Confirm;
         do
         {
-            cout << output;
+            cout << Message;
             cin >> Confirm;
             // confirm it a number  not a string
             if (cin.fail())
             {
-                cout << "Invalid Input \n";
+                cout << errorMsg;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
-        } while (Confirm < from || Confirm > to);
+        } while (Confirm < From || Confirm > To);
         return Confirm;
     }
 
     static bool Ask_for_continue(string message)
     {
-        return Read_num_in_range(message, 0, 1);
+        return Read_num_in_range(0, 1,message);
     }
 
     static string ReadString(const string &prompt)
@@ -150,7 +169,7 @@ public:
         return (i < 10) ? "    | " : "   | ";
     }
 
-    static void ()
+    static void multp()
     {
         for (int i = 0; i < 10; i++)
         {
@@ -161,7 +180,7 @@ public:
         }
     }
 
-    static bool is_Date1EqualDate2(clsDate Date1, clsDate Date2)
+    static bool IsDate1EqualDate2(clsDate Date1, clsDate Date2)
     {
         return (Date1.getYear() == Date2.getYear() && Date1.getMonth() == Date2.getMonth() && Date1.getDay() == Date2.getDay());
     }
@@ -173,14 +192,13 @@ public:
                (Date1.getYear() == Date2.getYear() && Date1.getMonth() == Date2.getMonth() && Date1.getDay() < Date2.getDay());
     }
 
-
     static bool IsDate1AfterDate2(clsDate Date1, clsDate Date2)
     {
-        return (!IsDate1BeforThenDate2(Date1, Date2)) && (!is_Date1EqualDate2(Date1, Date2));
+        return (!IsDate1BeforThenDate2(Date1, Date2)) && (!IsDate1EqualDate2(Date1, Date2));
     }
     static bool IsDateBetween(clsDate Date, clsDate DateFrom, clsDate DateTo)
     {
-        return ((IsDate1BeforThenDate2(DateFrom, Date) || is_Date1EqualDate2(DateFrom, Date)) &&
-                (IsDate1BeforThenDate2(Date, DateTo) || is_Date1EqualDate2(Date, DateTo)));
+        return ((IsDate1BeforThenDate2(DateFrom, Date) || IsDate1EqualDate2(DateFrom, Date)) &&
+                (IsDate1BeforThenDate2(Date, DateTo) || IsDate1EqualDate2(Date, DateTo)));
     }
 };

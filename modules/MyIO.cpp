@@ -24,7 +24,7 @@ namespace MyIO
         return Number;
     }
 
-    double ReadPositiveDoubleNumber(string Message)
+    double ReadPositiveDbleNumber(string Message)
     {
         double Number = 0;
         do {

@@ -222,7 +222,7 @@ namespace MyDate
                (Date1.year == Date2.year && Date1.month == Date2.month && Date1.day < Date2.day);
     }
 
-    bool is_Date1EqualDate2(sDate Date1, sDate Date2)
+    bool IsDate1EqualDate2(sDate Date1, sDate Date2)
     {
         return (Date1.year == Date2.year && Date1.month == Date2.month && Date1.day == Date2.day);
     }
@@ -673,7 +673,7 @@ namespace MyDate
     {
         if (MyLib::IsDate1BeforeDate2(Date1, Date2))
             return enDateCompare::Before;
-        if (MyLib::is_Date1EqualDate2(Date1, Date2))
+        if (MyLib::IsDate1EqualDate2(Date1, Date2))
             return enDateCompare::Equal;
 
         return enDateCompare::After;

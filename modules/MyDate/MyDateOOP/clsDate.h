@@ -355,11 +355,11 @@ public:
         return Date;
     }
 
-    bool is_Date1EqualDate2(clsDate Date2)
+    bool IsDate1EqualDate2(clsDate Date2)
     {
-        return is_Date1EqualDate2(*this, Date2);
+        return IsDate1EqualDate2(*this, Date2);
     }
-    static bool is_Date1EqualDate2(clsDate Date1, clsDate Date2)
+    static bool IsDate1EqualDate2(clsDate Date1, clsDate Date2)
     {
         return (Date1._year == Date2._year && Date1._month == Date2._month && Date1._day == Date2._day);
     }
@@ -419,7 +419,7 @@ public:
     {
         int TotalDiffDays = 0;
 
-        if (!is_Date1BeforeDate2(Date1, Date2))
+        if (!IsDate1BeforeDate2(Date1, Date2))
         {
             clsDate temp = Date1;
             Date1 = Date2;
@@ -468,12 +468,12 @@ public:
     {
         int DaysDiff = 0;
         short SwapFlag = 1;
-        if (!is_Date1BeforeDate2(Date1, Date2))
+        if (!IsDate1BeforeDate2(Date1, Date2))
         {
             swapDate(Date1, Date2);
             SwapFlag = -1;
         }
-        while (is_Date1BeforeDate2(Date1, Date2))
+        while (IsDate1BeforeDate2(Date1, Date2))
         {
             DaysDiff++;
             Date1 = IncreaseDateByOneDay(Date1);
@@ -499,11 +499,11 @@ public:
                to_string(Date._year);
     }
 
-    bool is_Date1BeforeDate2(clsDate Date2)
+    bool IsDate1BeforeDate2(clsDate Date2)
     {
-        return is_Date1BeforeDate2(*this, Date2);
+        return IsDate1BeforeDate2(*this, Date2);
     }
-    static bool is_Date1BeforeDate2(const clsDate &Date1, const clsDate &Date2)
+    static bool IsDate1BeforeDate2(const clsDate &Date1, const clsDate &Date2)
     {
         return (Date1._year < Date2._year) ||
                (Date1._year == Date2._year && Date1._month < Date2._month) ||
@@ -600,7 +600,7 @@ public:
     static int CalculateVacationDays(clsDate DateFrom, clsDate DateTo)
     {
         int Days = 0;
-        while (is_Date1BeforeDate2(DateFrom, DateTo))
+        while (IsDate1BeforeDate2(DateFrom, DateTo))
         {
             if (IsBusinessDay(DateFrom))
                 Days++;
@@ -1019,9 +1019,9 @@ public:
     }
     static enDateCompare CompareDates(const clsDate &Date1, const clsDate &Date2)
     {
-        if (is_Date1BeforeDate2(Date1, Date2))
+        if (IsDate1BeforeDate2(Date1, Date2))
             return enDateCompare::Before;
-        if (is_Date1EqualDate2(Date1, Date2))
+        if (IsDate1EqualDate2(Date1, Date2))
             return enDateCompare::Equal;
 
         return enDateCompare::After;
@@ -1044,7 +1044,7 @@ public:
     }
     static bool IsDate1AfterDate2(clsDate Date1, clsDate Date2)
     {
-        return (!IsDate1BeforThenDate2(Date1, Date2)) && (!is_Date1EqualDate2(Date1, Date2));
+        return (!IsDate1BeforThenDate2(Date1, Date2)) && (!IsDate1EqualDate2(Date1, Date2));
     }
 
     bool IsDateBetween(clsDate DateFrom, clsDate DateTo){
@@ -1052,8 +1052,8 @@ public:
     }
     static bool IsDateBetween(clsDate Date, clsDate DateFrom, clsDate DateTo)
 {
-    return ((IsDate1BeforThenDate2(DateFrom, Date) || is_Date1EqualDate2(DateFrom, Date)) &&
-            (IsDate1BeforThenDate2(Date, DateTo) || is_Date1EqualDate2(Date, DateTo)));
+    return ((IsDate1BeforThenDate2(DateFrom, Date) || IsDate1EqualDate2(DateFrom, Date)) &&
+            (IsDate1BeforThenDate2(Date, DateTo) || IsDate1EqualDate2(Date, DateTo)));
 }
 
 };

@@ -292,7 +292,7 @@ namespace MyBank
     void WithdrawFromAccount(string FileName, vector<stClient> &vClient, bool isFound, double Amount, int position) {
         while (Amount > vClient[position].AccountBalance) {
             cout << "\nInsufficient balance. Please enter a valid amount to withdraw: ";
-            Amount = MyLib::ReadPositiveDoubleNumber("\nEnter Amount to Withdraw : ");
+            Amount = MyLib::ReadPositiveDbleNumber("\nEnter Amount to Withdraw : ");
         }
         DepositToAccount(FileName, vClient, isFound, -Amount, position);
     }
@@ -312,7 +312,7 @@ namespace MyBank
             isFound = SearchClientInVector(NbrAcc, vClient, stFoundClient, position);
         }
         PrintClientRecord(vClient[position]);
-        double Value = MyLib::ReadPositiveDoubleNumber("\nEnter Amount to Deposit : ");
+        double Value = MyLib::ReadPositiveDbleNumber("\nEnter Amount to Deposit : ");
         DepositToAccount(FileName, vClient, isFound, Value, position);
     }
 
@@ -331,7 +331,7 @@ namespace MyBank
             isFound = SearchClientInVector(NbrAcc, vClient, stFoundClient, position);
         }
         PrintClientRecord(vClient[position]);
-        double Amount = MyLib::ReadPositiveDoubleNumber("\nEnter Amount to Withdraw : ");
+        double Amount = MyLib::ReadPositiveDbleNumber("\nEnter Amount to Withdraw : ");
         WithdrawFromAccount(FileName, vClient, isFound, Amount, position);
     }
 

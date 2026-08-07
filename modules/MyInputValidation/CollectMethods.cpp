@@ -36,7 +36,7 @@ static bool is_LastMonthInYear(int month)
     return month == 12;
 }
 
-static bool is_Date1BeforeDate2(const clsDate &Date1, const clsDate &Date2)
+static bool IsDate1BeforeDate2(const clsDate &Date1, const clsDate &Date2)
 {
     return (Date1.getYear() < Date2.getYear()) ||
            (Date1.getYear() == Date2.getYear() && Date1.getMonth() < Date2.getMonth()) ||
@@ -86,7 +86,7 @@ int ReadPositiveNumber(string Message)
     return Number;
 }
  
-double ReadPositiveDoubleNumber(string Message)
+double ReadPositiveDbleNumber(string Message)
 {
     double Number = 0;
     do
@@ -161,7 +161,7 @@ void multp()
 
 
 
-static bool is_Date1EqualDate2(clsDate Date1, clsDate Date2)
+static bool IsDate1EqualDate2(clsDate Date1, clsDate Date2)
 {
     return (Date1.getYear() == Date2.getYear() && Date1.getMonth() == Date2.getMonth() && Date1.getDay() == Date2.getDay());
 }
@@ -174,16 +174,16 @@ static bool IsDate1BeforThenDate2(clsDate Date1, clsDate Date2)
 }
     bool IsDate1AfterDate2(clsDate Date1, clsDate Date2)
     {
-        return (!IsDate1BeforThenDate2(Date1, Date2)) && (!is_Date1EqualDate2(Date1, Date2));
+        return (!IsDate1BeforThenDate2(Date1, Date2)) && (!IsDate1EqualDate2(Date1, Date2));
     }
 
    
     bool IsDate1AfterDate2(clsDate Date1, clsDate Date2)
 {
-    return (!IsDate1BeforThenDate2(Date1, Date2)) && (!is_Date1EqualDate2(Date1, Date2));
+    return (!IsDate1BeforThenDate2(Date1, Date2)) && (!IsDate1EqualDate2(Date1, Date2));
 }
 static bool IsDateBetween(clsDate Date, clsDate DateFrom, clsDate DateTo)
 {
-    return ((IsDate1BeforThenDate2(DateFrom, Date) || is_Date1EqualDate2(DateFrom, Date)) &&
-            (IsDate1BeforThenDate2(Date, DateTo) || is_Date1EqualDate2(Date, DateTo)));
+    return ((IsDate1BeforThenDate2(DateFrom, Date) || IsDate1EqualDate2(DateFrom, Date)) &&
+            (IsDate1BeforThenDate2(Date, DateTo) || IsDate1EqualDate2(Date, DateTo)));
 }

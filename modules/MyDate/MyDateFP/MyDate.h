@@ -29,7 +29,7 @@ namespace MyDate
     sDate AddDaysToDateFromBeginingOfYear(sDate Date, int DateToAdd);
     sDate ReadFullDate(std::string title = "");
     bool IsDate1BeforThenDate2(sDate Date1, sDate Date2);
-    bool is_Date1EqualDate2(sDate Date1, sDate Date2);
+    bool IsDate1EqualDate2(sDate Date1, sDate Date2);
     bool is_LastDayInMonth(sDate Date);
     bool is_LastMonthInYear(int month);
     sDate IncreaseDateByOneDay(sDate Date);
