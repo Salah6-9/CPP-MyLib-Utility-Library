@@ -125,7 +125,7 @@ public:
         return number;
     }
 
-    static short Read_num_in_range( int From, int To,string Message = "", string errorMsg = "")
+    static short Read_num_in_range(int From, int To, string Message = "", string errorMsg = "")
     {
         int Confirm;
         do
@@ -145,7 +145,20 @@ public:
 
     static bool Ask_for_continue(string message)
     {
-        return Read_num_in_range(0, 1,message);
+        return Read_num_in_range(0, 1, message);
+    }
+
+    static char GetUserConfirmation(string msg = "\nAre you sure you want Confirm the Operation for This account ?  Y or N:    ")
+    {
+        cout << msg;
+        char userChoice;
+        cin >> userChoice;
+        if (toupper(userChoice) != 'Y')
+        {
+            cout << "\nOperation canceled.";
+            return toupper(userChoice);
+        }
+        return toupper(userChoice);
     }
 
     static string ReadString(const string &prompt)
