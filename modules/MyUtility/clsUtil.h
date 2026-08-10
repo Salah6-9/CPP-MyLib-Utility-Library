@@ -87,7 +87,7 @@ public:
             Key += GenerateWord(4, CharType) + '-';
         }
 
-    return Key;
+        return Key;
     }
 
     static void FillArrayRendomkeys(int arrLength, string array[], enCharType CharType = enCharType::Capital)
@@ -228,23 +228,27 @@ public:
     static string EncryptText(string Text, short EncryptionKey)
     {
 
-        for (int i = 0; i <= Text.length(); i++)
+        for (int i = 0; i < (int)Text.length(); i++)
         {
-
             Text[i] = char((int)Text[i] + EncryptionKey);
         }
-
         return Text;
     }
 
     static string DecryptText(string Text, short EncryptionKey)
     {
-
-        for (int i = 0; i <= Text.length(); i++)
+        for (int i = 0; i < (int)Text.length(); i++)
         {
-
             Text[i] = char((int)Text[i] - EncryptionKey);
         }
         return Text;
     }
+
+    // Append..
+    inline static const string BLUE = "\033[34m";
+    inline static const string MAGENTA = "\033[35m";
+    inline static const string CYAN = "\033[36m";
+    inline static const string RED = "\x1b[1;31m";
+    inline static const string YELLOW = "\x1b[1;33m";
+    inline static const string RESET = "\033[0m";
 };
