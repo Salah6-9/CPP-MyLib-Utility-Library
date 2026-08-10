@@ -7,6 +7,83 @@ using namespace std;
 
 class clsUtil
 {
+private:
+    static string ConvertTensToWords(int num)
+    {
+
+        if (num == 0)
+        {
+            return "";
+        }
+        static const string units[] = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+                                       "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+
+        static const string tens[] = {"", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+
+        if (num < 20)
+        {
+            return units[num];
+        }
+        else
+        {
+            string remainder = units[num % 10];
+            return tens[num / 10] + (remainder != "" ? " " + remainder : "");
+        }
+    }
+    static string ConvertThreeDigitsToWords(int num)
+    {
+        if (num <= 99)
+        {
+            return ConvertTensToWords(num);
+        }
+        static const string units[] = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+
+        string remainder = ConvertTensToWords(num % 100);
+        return units[num / 100] + " Hundred" + (remainder != "" ? " " + remainder : "");
+    }
+    static vector<int> SplitNumberIntoGroups(int num)
+    {
+        vector<int> groups;
+
+        do
+        {
+            groups.push_back(num % 1000);
+            num /= 1000;
+        } while (num > 0);
+
+        return groups;
+    }
+    static string ConvertNumbersToWords(const vector<int> &Numbers)
+    {
+        string finalResult = "";
+        static const vector<string> scaleNames =
+            {
+                "",
+                "Thousand",
+                "Million",
+                "Billion",
+                "Trillion"};
+        const size_t size = Numbers.size();
+        for (size_t i = 0; i < size; i++)
+        {
+            if (Numbers[i] != 0)
+            {
+                finalResult += ConvertThreeDigitsToWords(Numbers[i]);
+
+                size_t index = size - 1 - i;
+
+                if (!scaleNames[index].empty())
+                {
+
+                    finalResult += ' ';
+                    finalResult += scaleNames[index];
+                }
+                finalResult += " ";
+            }
+        }
+        return finalResult;
+    }
+
 public:
     static void Srand()
     {
@@ -95,71 +172,13 @@ public:
         for (int i = 0; i < arrLength; i++)
             array[i] = Generatkey();
     }
-
-    static string ConvertTensToWords(int num)
+    //=====================================================
+    static string NumberToText(int num)
     {
-        if (num == 0)
-        {
-            return "";
-        }
-        static const string units[] = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
-                                       "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
-
-        static const string tens[] = {"", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
-
-        if (num < 20)
-        {
-            return units[num];
-        }
-        else
-        {
-            string remainder = units[num % 10];
-            return tens[num / 10] + (remainder != "" ? " " + remainder : "");
-        }
+        vector<int> GroupedNumbers = MyVector::ReversVector(SplitNumberIntoGroups(num));
+        return ConvertNumbersToWords(GroupedNumbers);
     }
-
-    static string ConvertThreeDigitsToWords(int num)
-    {
-        if (num <= 99)
-        {
-            return ConvertTensToWords(num);
-        }
-        static const string units[] = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
-
-        string remainder = ConvertTensToWords(num % 100);
-        return units[num / 100] + " Hundred" + (remainder != "" ? " " + remainder : "");
-    }
-
-    static string TranslateNumbersToWords(const vector<int> &Numbers)
-    {
-        string finalResult = "";
-        static const vector<string> scaleNames =
-            {
-                "",
-                "Thousand",
-                "Million",
-                "Billion",
-                "Trillion"};
-        const size_t size = Numbers.size();
-        for (size_t i = 0; i < size; i++)
-        {
-            if (Numbers[i] != 0)
-            {
-                finalResult += ConvertThreeDigitsToWords(Numbers[i]);
-
-                size_t index = size - 1 - i;
-
-                if (!scaleNames[index].empty())
-                {
-                    finalResult += ' ';
-                    finalResult += scaleNames[index];
-                }
-                finalResult += " ";
-            }
-        }
-        return finalResult;
-    }
-
+    //======================================================
     static string ColorText(string text, int colorCode)
     {
         switch (colorCode)
