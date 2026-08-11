@@ -26,5 +26,5 @@ namespace MyMath
     std::string ConvertTensToWords(int num);
     std::string ConvertThreeDigitsToWords(int num);
     std::vector<int> SplitNumberIntoGroups(int num);
-    std::string TranslateNumbersToWords(const std::vector<int> &Numbers);
+    std::string ConvertNumbersToWords(const std::vector<int> &Numbers);
 }

@@ -1,8 +1,13 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
 #include <cstdlib>
+#include <ctime>
 #include "../MyDate/MyDateOOP/clsDate.h"
+#include "../../MyLib.h"
+
+
 using namespace std;
 
 class clsUtil
