@@ -155,7 +155,6 @@ public:
         cin >> userChoice;
         if (toupper(userChoice) != 'Y')
         {
-            cout << "\nOperation canceled.";
             return toupper(userChoice);
         }
         return toupper(userChoice);

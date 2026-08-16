@@ -102,4 +102,16 @@ namespace MyFile
         }
         SaveVectorToFile(FileName, vFileContent);
     }
+
+    void AddDataLineToFile(string stDataLine, string UsersFileName)
+    {
+        fstream MyFile;
+        MyFile.open(UsersFileName, ios::out | ios::app);
+
+        if (MyFile.is_open())
+        {
+            MyFile << stDataLine << endl;
+            MyFile.close();
+        }
+    }
 }

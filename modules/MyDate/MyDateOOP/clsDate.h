@@ -499,6 +499,27 @@ public:
                to_string(Date._year);
     }
 
+    static string GetSystemDateTimeString()
+    {
+        time_t t = time(0);
+        tm *now = localtime(&t);
+
+        if (now == nullptr)
+        {
+            return "00/00/0000 - 00:00:00";
+        }
+
+        short Day = now->tm_mday;
+        short Month = now->tm_mon + 1;
+        short Year = now->tm_year + 1900;
+        short Hour = now->tm_hour;
+        short Minute = now->tm_min;
+        short Second = now->tm_sec;
+
+        return (to_string(Day) + "/" + to_string(Month) + "/" + to_string(Year) + " - " +
+                to_string(Hour) + ":" + to_string(Minute) + ":" + to_string(Second));
+    }
+
     bool IsDate1BeforeDate2(clsDate Date2)
     {
         return IsDate1BeforeDate2(*this, Date2);

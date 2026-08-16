@@ -1,7 +1,7 @@
 #include "MyMath.h"
 #include <iostream>
 #include <cstdlib>
-#include "../MyDate/MyDateOOP/clsDate.h"
+#include "MyDate/MyDateOOP/clsDate.h"
 
 using namespace std;
 
@@ -231,3 +231,5 @@ namespace MyMath
         vector<int> GroupedNumbers = MyVector::ReversVector(SplitNumberIntoGroups(num));
         return ConvertNumbersToWords(GroupedNumbers);
     }
+
+} // namespace MyMath

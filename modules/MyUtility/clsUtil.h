@@ -272,7 +272,8 @@ public:
     inline static const string BLUE = "\033[34m";
     inline static const string MAGENTA = "\033[35m";
     inline static const string CYAN = "\033[36m";
-    inline static const string RED = "\x1b[1;31m";
-    inline static const string YELLOW = "\x1b[1;33m";
+    inline static const string RED = "\033[1;31m";
+    inline static const string YELLOW = "\033[1;33m";
     inline static const string RESET = "\033[0m";
+    inline static const string GREEN = "\033[1;32m";
 };

@@ -11,4 +11,6 @@ namespace MyFile
     void appendOneLine(std::string FileName, std::string Line);
     void AppendMultLine(std::string FileName);
     void UpdateRecord(std::string FileName, std::string Record, std::string newtext = "");
+    void AddDataLineToFile(std::string stDataLine, std::string UsersFileName);
+
 }
