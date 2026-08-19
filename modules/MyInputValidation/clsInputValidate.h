@@ -10,12 +10,8 @@ using namespace std;
 class clsInputValidate
 {
 public:
-    static bool IsNumberBetween(int num, int frome, int to)
-    {
-        return ((num > frome) && (num < to));
-    }
-
-    static bool IsNumberBetween(double num, double frome, double to)
+    template <typename T>
+    static bool IsNumberBetween(T num, T frome, T to)
     {
         return ((num > frome) && (num < to));
     }
@@ -70,9 +66,10 @@ public:
         return Date.IsValidDate();
     }
 
-    static int ReadPositiveNumber(string Message = "", string errorMsg = "")
+    template <typename T>
+    static T ReadPositiveNumber(string Message = "", string errorMsg = "")
     {
-        int Number = 0;
+        T Number = 0;
 
         do
         {
@@ -87,47 +84,23 @@ public:
             }
         } while (Number <= 0);
         return Number;
+    }
+
+    static int ReadPositiveNumber(string Message = "", string errorMsg = "Invalid Input!\n")
+    {
+        return ReadPositiveNumber<int>(Message, errorMsg);
     }
 
     static double ReadPositiveDbleNumber(string Message = "", string errorMsg = "")
     {
-        double Number = 0;
-        do
-        {
-            cout << Message;
-            cin >> Number;
-            // confirm it a number  not a string
-            if (cin.fail())
-            {
-                cout << errorMsg;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            }
-        } while (Number <= 0);
-        return Number;
+        return ReadPositiveNumber<double>(Message, errorMsg);
     }
 
-    static double Read_Dblnum_in_range(string Message = "", string errorMsg = "", double from = 0, double to = 100)
-    {
-        double number;
-        do
-        {
-            cout << Message;
-            cin >> number;
-            // confirm it a number  not a string
-            if (cin.fail())
-            {
-                cout << errorMsg;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            }
-        } while (number < from || number > to);
-        return number;
-    }
+    template <typename T>
 
-    static short Read_num_in_range(int From, int To, string Message = "", string errorMsg = "")
+    static T Read_num_in_range(T From, T To, string Message = "", string errorMsg = "")
     {
-        int Confirm;
+        T Confirm;
         do
         {
             cout << Message;
@@ -143,20 +116,32 @@ public:
         return Confirm;
     }
 
-    static bool Ask_for_continue(string message)
+    // ========== Wrappers للتوافق مع الكود القديم ==========
+
+    static double Read_Dblnum_in_range(string Message = "", string errorMsg = "Out of range!\n", double from = 0, double to = 100)
     {
-        return Read_num_in_range(0, 1, message);
+        return Read_num_in_range<double>(from, to, Message, errorMsg);
     }
 
-    static char GetUserConfirmation(string msg = "\nAre you sure you want Confirm the Operation for This account ?  Y or N:    ")
+    static short Read_num_in_range(int From, int To, string Message = "", string errorMsg = "Out of range!\n")
     {
-        cout << msg;
+        return static_cast<short>(Read_num_in_range<int>(From, To, Message, errorMsg));
+    }
+
+    static bool Ask_for_continue(string message)
+    {
+        return Read_num_in_range<int>(0, 1, message) != 0;
+    }
+
+    static char GetUserConfirmation(string msg = "...")
+    {
         char userChoice;
-        cin >> userChoice;
-        if (toupper(userChoice) != 'Y')
+        do
         {
-            return toupper(userChoice);
-        }
+            cout << msg;
+            cin >> userChoice;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        } while (toupper(userChoice) != 'Y' && toupper(userChoice) != 'N');
         return toupper(userChoice);
     }
 
